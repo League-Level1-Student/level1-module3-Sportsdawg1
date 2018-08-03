@@ -19,7 +19,7 @@ public class SimonSays extends KeyAdapter {
 
 	// Complete steps 1 - 7 before you test
 	// 1. Declare a JFrame variable
-	JFrame frame = new JFrame();
+	JFrame frame;
 	
 	HashMap<Integer, String> images = new HashMap<Integer, String>();
 	private int imageIndex;
@@ -38,7 +38,6 @@ public class SimonSays extends KeyAdapter {
 		// 3. Use a JOptionPane to tell the user the rules: "Press the matching key when
 		// 'Simon says' otherwise press a different key"
 		JOptionPane.showMessageDialog(null, "Press the matching key when 'Simon says' otherwise press a different key");
-		
 		// 4. Call the showImage method to show an image
 		showImage();
 	}
@@ -46,6 +45,8 @@ public class SimonSays extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		// 15. Make a points variable to track the score.
 		int score = 0;
+		setImage();
+		
 		// 16. If the keyCode matches the imageIndex and "Simon says"
 		if (e.getKeyCode() == imageIndex && simonSays) {
 			
@@ -66,10 +67,8 @@ public class SimonSays extends KeyAdapter {
 			speak("correct");
 		
 		// 22. Increment tries by 1
-		} else {
-			tries++;
 		}
-		
+		tries++;
 		// 25. If tries is greater than 9 (or however many you want)...
 		if (tries > 9) {
 			
@@ -78,7 +77,7 @@ public class SimonSays extends KeyAdapter {
 			speak(score + "");
 		
 			// 27. Exit the program
-			
+			System.exit(1);
 			
 		}
 		// 23. Dispose of the frame
@@ -91,7 +90,7 @@ public class SimonSays extends KeyAdapter {
 
 	private void showImage() {
 		// 5. Initialize your frame to a new JFrame()
-		
+		frame = new JFrame();
 		// 6. Set the frame to visible
 		frame.setVisible(true);
 		// 7. Uncomment the following line to add a random image to your frame
@@ -108,33 +107,23 @@ public class SimonSays extends KeyAdapter {
 		frame.addKeyListener(this);
 		// 12. Create a new instance of Random
 		Random random = new Random();
-		random.nextInt((1)+1);
 		
 		// 13. Use the Random and the speak method to either say 
 		// "Simon says press this key" or "Press this key"
-		frame.add(getNextRandomImage());
-		if (imageIndex == 37) {
-			image = "left";
-		} else if (imageIndex == 38) {
-			image = "up";
-		} else if (imageIndex == 39) {
-			image = "right";
-		} else if (imageIndex == 40) {
-			image = "down";
-		}
-		if (random.nextInt((1)+1) == 1) {
+		
+		if (random.nextInt(2) == 1) {
 			simonSays = true;
 		} else {
 			simonSays = false;
 		}
-		
+		setImage();
 		if(simonSays) {
 			speak("simon says press" + image);
 		} else {
 			speak("press" + image);
 		}
 		// 14. Above, set the value of simonSays to true/false appropriately
-
+		
 		
 	}
 
@@ -160,8 +149,18 @@ public class SimonSays extends KeyAdapter {
 	public static void main(String[] args) throws Exception {
 		new SimonSays().makeAlbum();
 	}
+	void setImage() {
+		if (imageIndex == 37) {
+			image = "left";
+		} else if (imageIndex == 38) {
+			image = "up";
+		} else if (imageIndex == 39) {
+			image = "right";
+		} else if (imageIndex == 40) {
+			image = "down";
+		}
+	}
 }
-
 /*
  * BONUS!
  * Add a timer :
