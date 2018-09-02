@@ -22,6 +22,7 @@ public class TweetFinder implements ActionListener {
 		button.setText("find");
 		panel.add(text);
 		panel.add(button);
+		button.addActionListener(this);
 		frame.add(panel);
 		frame.pack();
 	}
@@ -30,8 +31,7 @@ public class TweetFinder implements ActionListener {
 		finder.createUI();
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("test");
+	public void actionPerformed (ActionEvent e) {
 		JButton buttonPressed = (JButton) e.getSource();
 		if (buttonPressed == button) {
 			System.out.println("tweet tweet");
